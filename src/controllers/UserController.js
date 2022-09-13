@@ -18,14 +18,13 @@ class UserController {
         const {email, fullName, userName, password} = req.body
 
         const userExists = await User.findOne({email})
-        let newUser
 
         if(!userExists)
-            newUser = await User.create({email, fullName, userName, password})
+            await User.create({email, fullName, userName, password})
         else     
             return res.status(400).json({message: 'Usuário já existe!'})
 
-        return res.json(newUser)
+        return res.json({message: 'Usuário cadastrado com sucesso!'})
     }
 
 }
