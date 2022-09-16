@@ -19,6 +19,7 @@
   "homepage": "https://github.com/lucas-martins/app-financeiro-backend#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "mongoose": "^6.6.0",
