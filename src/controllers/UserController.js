@@ -1,4 +1,5 @@
 import User from "../models/User";
+import bcrypt from 'bcrypt'
 import * as Yup from 'yup'
 
 class UserController {
@@ -15,14 +16,18 @@ class UserController {
         if(!(await schema.isValid(req.body)))
             return res.status(400).json({message: 'Erro na validação do usuário!'})
 
-        const {email, fullName, userName, password} = req.body
+        let {email, fullName, userName, password} = req.body
 
         const userExists = await User.findOne({email})
+        const userNameExists = await User.findOne({userName})
 
-        if(!userExists)
+        if(!userExists && !userNameExists) {
+            password = await bcrypt.hash(password, 8)
             await User.create({email, fullName, userName, password})
-        else     
-            return res.status(400).json({message: 'Usuário já existe!'})
+        } else if(userExists)     
+            return res.status(400).json({message: 'E-mail já cadastrado!'})
+        else
+            return res.status(400).json({message: 'Nome de Usuário indisponível!'})
 
         return res.json({message: 'Usuário cadastrado com sucesso!'})
     }
