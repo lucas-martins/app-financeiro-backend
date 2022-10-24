@@ -11,5 +11,7 @@ routes.post('/login', SessionController.sessionLogin)
 
 routes.get('/retrieveAccounts/:userId', AccountController.retrieveAccounts)
 routes.post('/addAccount', AccountController.addAccount)
+routes.put('/updateAccount', AccountController.updateAccount)
+routes.delete('/removeAccount/:accountId', AccountController.removeAccount)
 
 export default routes
