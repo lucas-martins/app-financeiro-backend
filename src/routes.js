@@ -3,6 +3,7 @@ import {Router} from 'express'
 import UserController from './controllers/UserController'
 import SessionController from './controllers/SessionController'
 import AccountController from './controllers/AccountController'
+import TransactionController from './controllers/TransactionController'
 
 const routes = new Router()
 
@@ -13,5 +14,7 @@ routes.get('/retrieveAccounts/:userId', AccountController.retrieveAccounts)
 routes.post('/addAccount', AccountController.addAccount)
 routes.put('/updateAccount', AccountController.updateAccount)
 routes.delete('/removeAccount/:accountId', AccountController.removeAccount)
+
+routes.post('/addTransaction', TransactionController.addTransaction)
 
 export default routes
