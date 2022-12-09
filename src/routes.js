@@ -15,6 +15,7 @@ routes.post('/addAccount', AccountController.addAccount)
 routes.put('/updateAccount', AccountController.updateAccount)
 routes.delete('/removeAccount/:accountId', AccountController.removeAccount)
 
+routes.get('/retrieveTransactions/:userId', TransactionController.retrieveTransactions)
 routes.post('/addTransaction', TransactionController.addTransaction)
 
 export default routes

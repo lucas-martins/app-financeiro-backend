@@ -6,6 +6,27 @@ import * as Yup from 'yup'
 
 class TransactionController {
 
+    async retrieveTransactions(req, res) {
+        const schema = Yup.object().shape({
+            userId: Yup.string().required()
+        })
+
+        const {userId} = req.params
+
+        const body = {userId}
+
+        if(!(await schema.isValid(body)))
+            return res.status(400).json({message: 'Usuário não foi informado!'})
+        
+        const userExists = await User.findById({_id: userId})
+
+        if(userExists) {
+            const userTransactions = await Transaction.find({userId})
+            return res.json(userTransactions)
+        }
+        else return res.status(400).json({message: 'Usuário não existe!'})
+    }
+
     async addTransaction(req, res) {
         const schema = Yup.object().shape({
             userId: Yup.string().required(),
