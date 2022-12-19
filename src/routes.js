@@ -4,6 +4,7 @@ import UserController from './controllers/UserController'
 import SessionController from './controllers/SessionController'
 import AccountController from './controllers/AccountController'
 import TransactionController from './controllers/TransactionController'
+import CategoryController from './controllers/CategoryController'
 
 const routes = new Router()
 
@@ -17,5 +18,7 @@ routes.delete('/removeAccount/:accountId', AccountController.removeAccount)
 
 routes.get('/retrieveTransactions/:userId', TransactionController.retrieveTransactions)
 routes.post('/addTransaction', TransactionController.addTransaction)
+
+routes.get('/retrieveCategories/:userId', CategoryController.retrieveCategories)
 
 export default routes

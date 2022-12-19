@@ -59,7 +59,7 @@ class TransactionController {
             if(type < 0) newBalance = accountBalance - value
             else newBalance = accountBalance + value
       
-            await Transaction.create({userId, accountId, date, description, category, type, value})
+            await Transaction.create({userId, accountId, accountName, date, description, category, type, value})
 
             await Account.updateOne({_id: accountId}, {
                 userId,

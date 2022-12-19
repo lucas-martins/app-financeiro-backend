@@ -4,7 +4,6 @@ import User from "../models/User"
 import * as Yup from 'yup'
 
 class AccountController {
-
     async retrieveAccounts(req, res) {
         const schema = Yup.object().shape({
             userId: Yup.string().required()
