@@ -1,5 +1,6 @@
 import Account from "../models/Account"
 import User from "../models/User"
+import Transaction from "../models/Transaction"
 
 import * as Yup from 'yup'
 
@@ -38,11 +39,16 @@ class AccountController {
         const {userId, accountName, accountBalance} = req.body
 
         const userExists = await User.findById({_id: userId})
+        const accounts = await Account.find({userId})
+        
+        const accountNames = accounts.map(account => account.accountName)
 
-        if(userExists) {
+        if(userExists && !accountNames.includes(accountName)) {
             await Account.create({userId, accountName, accountBalance})
             return res.json({message: 'Conta adicionada com sucesso'})
-        } else {
+        } else if (accountNames.includes(accountName)) {
+            return res.status(400).json({message: 'Esta conta já existe!'})
+        } else { 
             return res.status(400).json({message: 'Usuário não existe!'})
         }
 
@@ -100,6 +106,7 @@ class AccountController {
         if(accountExists) {
             if(String(accountExists.userId) === userId) {
                 await Account.findByIdAndDelete({_id: accountId})
+                await Transaction.deleteMany({userId, accountId})
                 return res.json({message: 'Conta removida com sucesso!'})
             } else return res.status(401).json({message: 'Conta não pertence a este usuário! Impossível remover.'})
         }
